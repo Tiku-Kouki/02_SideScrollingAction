@@ -20,7 +20,7 @@ public class PlayerScript : MonoBehaviour
     {
         Vector3 v = rb.velocity;
 
-        float moveSpeed = 1.0f;
+        float moveSpeed = 3.0f;
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
