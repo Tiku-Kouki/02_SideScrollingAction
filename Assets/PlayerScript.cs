@@ -6,15 +6,14 @@ public class PlayerScript : MonoBehaviour
 {
     public Rigidbody rb;
 
-    
-
 
     // Start is called before the first frame update
     void Start()
     {
         
     }
-
+    
+    
     // Update is called once per frame
     void Update()
     {
@@ -22,26 +21,31 @@ public class PlayerScript : MonoBehaviour
 
         float moveSpeed = 3.0f;
 
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            v.x = moveSpeed;
-        }
-        else
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            v.x = -moveSpeed;
-        }
-        else
-        {
-            v.x = 0;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            v.y = 5;
-        }
         
 
+            if (Input.GetKey(KeyCode.RightArrow) &&
+            GoalScript.isGameClear == false)
+            {
+                v.x = moveSpeed;
+            }
+            else
+        if (Input.GetKey(KeyCode.LeftArrow)&&
+            GoalScript.isGameClear == false)
+            {
+                v.x = -moveSpeed;
+            }
+            else
+            {
+                v.x = 0;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space)&&
+            GoalScript.isGameClear == false)
+            {
+                v.y = 5;
+            }
+
+        
 
             rb.velocity = v;
     }
