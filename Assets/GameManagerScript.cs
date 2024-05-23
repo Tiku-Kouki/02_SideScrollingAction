@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using TMPro;
 
 //public sealed class Screen
 //{
@@ -13,10 +13,18 @@ public class GameManagerScript : MonoBehaviour
 {
     public GameObject block;
 
+    public GameObject coin;
+
     public GameObject goal;
+
+    public TextMeshProUGUI scoreText;
+
+    public static int score = 0;
+  
 
     public static bool isGameOver = false;
 
+    
 
     int[,] map;
 
@@ -38,7 +46,7 @@ public class GameManagerScript : MonoBehaviour
             { 1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,1 },
             { 1,0,0,0,0,0,0,0,0,0,1,0,0,0,2,2,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1 },
             { 1,0,0,0,2,2,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1 },
-            { 1,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1 },
+            { 1,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1 },
             { 1,0,0,1,1,1,1,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,2,0,0,0,1 },
             { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
         
@@ -57,6 +65,16 @@ public class GameManagerScript : MonoBehaviour
                      position,
                      Quaternion.identity
                     );
+
+                }
+
+                if (map[y, x] == 2)
+                {
+                    instance = Instantiate(
+                    coin,
+                    position,
+                    Quaternion.identity
+                   );
 
                 }
 
@@ -91,7 +109,7 @@ public class GameManagerScript : MonoBehaviour
 
         }
 
-
+        scoreText.text = "SCORE " + score;
 
 
     }
