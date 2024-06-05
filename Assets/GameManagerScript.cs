@@ -13,6 +13,8 @@ public class GameManagerScript : MonoBehaviour
 {
     public GameObject block;
 
+    public GameObject block2;
+
     public GameObject coin;
 
     public GameObject goal;
@@ -23,6 +25,8 @@ public class GameManagerScript : MonoBehaviour
   
 
     public static bool isGameOver = false;
+
+    public GameObject goalParticle;
 
     
 
@@ -43,15 +47,15 @@ public class GameManagerScript : MonoBehaviour
             { 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 },
             { 1,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 },
             { 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 },
-            { 1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,1 },
+            { 1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,3,0,0,1 },
             { 1,0,0,0,0,0,0,0,0,0,1,0,0,0,2,2,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1 },
-            { 1,0,0,0,2,2,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1 },
-            { 1,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1 },
-            { 1,0,0,1,1,1,1,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,2,0,0,0,1 },
+            { 1,0,0,0,2,2,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,1,1,0,2,2,0,0,0,1,0,0,0,0,1 },
+            { 1,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1 },
+            { 1,0,0,1,1,1,1,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1 },
             { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
         
         };
-    
+
         for (int y = 0; y < map.GetLength(0); y++)
         {
             position.y = -y + 5;
@@ -60,11 +64,11 @@ public class GameManagerScript : MonoBehaviour
                 position.x = x;
                 if (map[y, x] == 1)
                 {
-                     instance = Instantiate(
-                     block,
-                     position,
-                     Quaternion.identity
-                    );
+                    instance = Instantiate(
+                    block,
+                    position,
+                    Quaternion.identity
+                   );
 
                 }
 
@@ -76,6 +80,9 @@ public class GameManagerScript : MonoBehaviour
                     Quaternion.identity
                    );
 
+
+
+
                 }
 
                 if (map[y, x] == 3)
@@ -86,13 +93,32 @@ public class GameManagerScript : MonoBehaviour
                     Quaternion.identity
                    );
 
+                    goalParticle.transform.position = position;
+
+                    // instance = Instantiate(
+                    // goalParticle,
+                    // position,
+                    // Quaternion.identity
+                    //);
+
                 }
 
 
             }
         }
 
+        for (int y = 0; y < map.GetLength(0); y++)
+        {
+            position.y = -y + 5;
+            for (int x = 0; x < map.GetLength(1); x++)
+            {
+                position.x = x;
+                position.z = 2;
 
+                Instantiate(block2, position, Quaternion.identity);
+
+            }
+        }
 
     }
 

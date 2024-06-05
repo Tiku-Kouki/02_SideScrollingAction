@@ -10,14 +10,18 @@ public class PlayerScript : MonoBehaviour
 
     private bool isBlock = true;
 
-     
+    public GameObject bombParticle;
 
+    public Animator animator;
 
 
     void Start()
     {
         audioSource = gameObject.GetComponent<AudioSource>();
         GameManagerScript.score = 0;
+        transform.rotation = Quaternion.Euler(0, 90, 0);
+
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,6 +33,8 @@ public class PlayerScript : MonoBehaviour
             audioSource.Play();
 
             GameManagerScript.score += 1;
+
+            Instantiate(bombParticle, transform.position, Quaternion.identity);
         }
     }
 
@@ -40,12 +46,13 @@ public class PlayerScript : MonoBehaviour
 
         float moveSpeed = 3.0f;
 
-        Vector3 rayPosition = transform.position;
+        Vector3 rayPosition = transform.position + new Vector3(0.0f, 0.8f, 0.0f);
+
         Ray ray = new Ray(rayPosition, Vector3.down);
+       
+        float distance = 0.9f;
 
-        float distance = 0.6f;
 
-        
 
         //Debug.DrawRay(rayPosition, Vector3.down * distance, Color.red);
 
@@ -63,27 +70,43 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow) &&
            GoalScript.isGameClear == false)
          
-        {   
+        {
+            animator.SetBool("walk", true);
+            transform.rotation = Quaternion.Euler(0, 90, 0);
             v.x = moveSpeed;
         }   
         else  
         if (Input.GetKey(KeyCode.LeftArrow)&&
             GoalScript.isGameClear == false)
         {
+            animator.SetBool("walk", true);
+            transform.rotation = Quaternion.Euler(0, -90, 0);
             v.x = -moveSpeed;
         } 
         else  
-        {      
+        {
+            animator.SetBool("walk", false);
             v.x = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.Space)&&
             GoalScript.isGameClear == false &&
             isBlock == true)
-        { 
+        {
+           
             v.y = 5;
-          
+
         }
+
+        if(isBlock == true)
+        {
+            animator.SetBool("jump", false);
+        }
+        else
+        {
+            animator.SetBool("jump", true);
+        }
+
             rb.velocity = v;
     }
 }
