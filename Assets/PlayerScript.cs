@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.TextCore;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class PlayerScript : MonoBehaviour
             GameManagerScript.score += 1;
 
             Instantiate(bombParticle, transform.position, Quaternion.identity);
+
+            Debug.Log("ƒRƒCƒ“‚ð‚Æ‚Á‚½");
+
         }
     }
 
@@ -52,6 +56,9 @@ public class PlayerScript : MonoBehaviour
        
         float distance = 0.9f;
 
+        float stick = Input.GetAxis("Horizontal");
+
+
 
 
         //Debug.DrawRay(rayPosition, Vector3.down * distance, Color.red);
@@ -67,40 +74,62 @@ public class PlayerScript : MonoBehaviour
             Debug.DrawRay(rayPosition, Vector3.down * distance, Color.yellow);
         }
         
-        if (Input.GetKey(KeyCode.RightArrow) &&
-           GoalScript.isGameClear == false)
-         
-        {
-            animator.SetBool("walk", true);
-            transform.rotation = Quaternion.Euler(0, 90, 0);
-            v.x = moveSpeed;
-        }   
-        else  
-        if (Input.GetKey(KeyCode.LeftArrow)&&
-            GoalScript.isGameClear == false)
-        {
-            animator.SetBool("walk", true);
-            transform.rotation = Quaternion.Euler(0, -90, 0);
-            v.x = -moveSpeed;
-        } 
-        else  
-        {
-            animator.SetBool("walk", false);
-            v.x = 0;
-        }
+        
 
-        if (Input.GetKeyDown(KeyCode.Space)&&
+        if ((Input.GetKeyDown(KeyCode.Space)||
+            Input.GetButtonDown("Jump"))&&
             GoalScript.isGameClear == false &&
             isBlock == true)
         {
-           
             v.y = 5;
 
         }
 
-        if(isBlock == true)
+       
+
+       
+        if ((Input.GetKey(KeyCode.RightArrow) || stick > 0) &&
+           
+            GoalScript.isGameClear == false)
+
+           
+        {
+            
+            animator.SetBool("walk", true);
+            transform.rotation = Quaternion.Euler(0, 90, 0);
+            v.x = moveSpeed;
+           
+        }
+            else
+            if ((Input.GetKey(KeyCode.LeftArrow) || stick < 0) &&
+                GoalScript.isGameClear == false)
+            {
+                animator.SetBool("walk", true);
+                transform.rotation = Quaternion.Euler(0, -90, 0);
+                v.x = -moveSpeed;
+            }
+            else
+            {
+                animator.SetBool("walk", false);
+                v.x = 0;
+            }
+        
+        if (Input.GetKeyDown(KeyCode.Space) &&
+            GoalScript.isGameClear == false &&
+            isBlock == true)
+        {
+
+            v.y = 5;
+
+           
+
+        }
+
+
+        if (isBlock == true)
         {
             animator.SetBool("jump", false);
+            Debug.Log("’…’n");
         }
         else
         {
